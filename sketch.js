@@ -15,6 +15,8 @@ const settings = {
   // dimensions: [2048, 2048],
 };
 
+const isDev = process.env.NODE_ENV === "development";
+
 const sketch = ({ context }) => {
   // Create a renderer
   const renderer = new THREE.WebGLRenderer({
@@ -71,6 +73,15 @@ const sketch = ({ context }) => {
   const light = new THREE.PointLight("white", 1);
   light.position.set(2, 2, 0);
   scene.add(light);
+
+  isDev && scene.add(new THREE.PointLightHelper(light, 0.15));
+
+  scene.add(new THREE.AmbientLight("red", 0.1));
+
+  // scene.add(new THREE.AxesHelper(5));
+
+  // scene.add(new THREE.GridHelper(5, 50));
+
   // draw each frame
   return {
     // Handle resize events here
